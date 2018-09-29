@@ -1,0 +1,8 @@
+0.6
+2018.2
+Jun 14 2018
+20:07:38
+/home/wymt/code/system2018/Arch2018/adder/sim/test_adder.v,1538198346,verilog,,,/home/wymt/code/system2018/Arch2018/adder/src/adder.v,test_adder,,,,,,,,
+/home/wymt/code/system2018/Arch2018/adder/src/adder.v,1538014880,verilog,,,,adder;full_adder,,,,,,,,
+/home/wymt/code/system2018/Arch2018/adder/src/adder2.v,1538212787,verilog,,/home/wymt/code/system2018/Arch2018/adder/sim/test_adder.v,,four_bit_adder,,,,,,,,
+/home/wymt/code/system2018/Arch2018/adder/test/adder/adder.sim/sim_1/behav/xsim/glbl.v,1529022455,verilog,,,,glbl,,,,,,,,

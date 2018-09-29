@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -std=c++17 -Wall -g  -shared -Wl,-soname,libgtest.so -o libgtest.so CMakeFiles/gtest.dir/src/gtest-all.cc.o  -L/home/wymt/code/system2018/Arch2018/serial/build/gtest/src -Wl,-rpath,/home/wymt/code/system2018/Arch2018/serial/build/gtest/src -lpthread 
