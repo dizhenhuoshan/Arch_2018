@@ -1,2 +1,3 @@
-#忽略RISC_V GNU工具链
+#忽略RISC_V GNU工具链, OpenMips
 riscv-gnu-toolchain/
+OpenMIPS/
