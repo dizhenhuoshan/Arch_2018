@@ -65,11 +65,10 @@ module adder(adder_opr1, adder_opr2, adder_ans, adder_carry);
 	assign c[1] = G[1] | (P[1] & c[0]);
 	assign c[2] = G[2] | (P[2] & c[1]);
 	assign adder_carry = G[3] | (P[3] & c[2]);
-	// assign adder_carry = c[3];
 
-	four_bit_adder full_adder1(adder_opr1[3:0], adder_opr2[3:0], p[3:0], g[3:0], 1'b0, adder_ans[3:0]);
-	four_bit_adder full_adder2(adder_opr1[7:4], adder_opr2[7:4], p[7:4], g[7:4], c[0], adder_ans[7:4]);
-	four_bit_adder full_adder3(adder_opr1[11:8], adder_opr2[11:8], p[11:8], g[11:8], c[1], adder_ans[11:8]);
-	four_bit_adder full_adder4(adder_opr1[15:12], adder_opr2[15:12], p[15:12], g[15:12], c[2], adder_ans[15:12]);
+	four_bit_adder four_adder1(adder_opr1[3:0], adder_opr2[3:0], p[3:0], g[3:0], 1'b0, adder_ans[3:0]);
+	four_bit_adder four_adder2(adder_opr1[7:4], adder_opr2[7:4], p[7:4], g[7:4], c[0], adder_ans[7:4]);
+	four_bit_adder four_adder3(adder_opr1[11:8], adder_opr2[11:8], p[11:8], g[11:8], c[1], adder_ans[11:8]);
+	four_bit_adder four_adder4(adder_opr1[15:12], adder_opr2[15:12], p[15:12], g[15:12], c[2], adder_ans[15:12]);
 
 endmodule

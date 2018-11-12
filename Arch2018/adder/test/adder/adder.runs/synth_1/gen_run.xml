@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1538212810">
-  <File Type="VDS-TIMING-PB" Name="adder_top_timing_summary_synth.pb"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="adder_top_timing_summary_synth.rpt"/>
+  <File Type="PA-TCL" Name="adder_top.tcl"/>
+  <File Type="REPORTS-TCL" Name="adder_top_reports.tcl"/>
+  <File Type="RDS-RDS" Name="adder_top.vds"/>
   <File Type="RDS-DCP" Name="adder_top.dcp"/>
   <File Type="RDS-UTIL-PB" Name="adder_top_utilization_synth.pb"/>
   <File Type="RDS-UTIL" Name="adder_top_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="adder_top_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="adder_top.vds"/>
-  <File Type="REPORTS-TCL" Name="adder_top_reports.tcl"/>
-  <File Type="PA-TCL" Name="adder_top.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/../../src/adder2.v">
@@ -86,9 +83,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
     <Step Id="synth_design"/>
   </Strategy>
 </GenRun>
