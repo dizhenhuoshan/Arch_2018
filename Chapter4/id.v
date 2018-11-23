@@ -1,3 +1,4 @@
+`include"defines.v"
 module id(
     input wire                  rst,
     input wire[`InstAddrBus]    pc_i,
@@ -64,6 +65,7 @@ reg instvalid;
                     reg1_read_o <= 1'b1;
                     reg2_read_o <= 1'b0;
                     imm         <= {16'h0, inst_i[15:0]};
+                    wd_o        <= inst_i[20:16];
                     instvalid   <= `InstValid;
                 end
                 default: begin
@@ -73,7 +75,7 @@ reg instvalid;
     end
 
     always @ ( * ) begin
-        if (rst == `WriteEnable) begin
+        if (rst == `RstEnable) begin
             reg1_o <= `ZeroWord;
         end else if (reg1_read_o == 1'b1) begin
             reg1_o <= reg1_data_i;
@@ -85,7 +87,7 @@ reg instvalid;
     end
 
     always @ ( * ) begin
-        if (rst == `WriteEnable) begin
+        if (rst == `RstEnable) begin
             reg2_o <= `ZeroWord;
         end else if (reg2_read_o == 1'b1) begin
             reg2_o <= reg2_data_i;

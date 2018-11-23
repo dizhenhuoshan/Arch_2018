@@ -1,3 +1,4 @@
+`include"defines.v"
 module inst_rom(
     input wire                  ce,
     input wire[`InstAddrBus]    addr,

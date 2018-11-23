@@ -1,3 +1,4 @@
+`include"defines.v"
 module openmips_min_spoc(
     input wire      clk,
     input wire      rst

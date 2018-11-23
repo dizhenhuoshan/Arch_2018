@@ -1,3 +1,4 @@
+`include"defines.v"
 module mem(
 
     input wire                  rst,

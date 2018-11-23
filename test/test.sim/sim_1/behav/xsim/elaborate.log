@@ -4,4 +4,33 @@ Running: /home/wymt/XILINX_Vivado/Vivado/2018.2/bin/unwrapped/lnx64.o/xelab -wto
 Using 8 slave threads.
 Starting static elaboration
 Completed static elaboration
-INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/openmips_min_spoc.v" Line 2. Module openmips_min_spoc doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/openmips.v" Line 2. Module openmips doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/pc_reg.v" Line 2. Module pc_reg doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/if_id.v" Line 2. Module if_id doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/id.v" Line 2. Module id doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/regfile.v" Line 2. Module regfile doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/id_ex.v" Line 2. Module id_ex doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/ex.v" Line 2. Module ex doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/ex_mem.v" Line 2. Module ex_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/mem.v" Line 2. Module mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/mem_wb.v" Line 2. Module mem_wb doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/OpenMIPS/Chapter4/inst_rom.v" Line 2. Module inst_rom doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.pc_reg
+Compiling module xil_defaultlib.if_id
+Compiling module xil_defaultlib.id
+Compiling module xil_defaultlib.regfile
+Compiling module xil_defaultlib.id_ex
+Compiling module xil_defaultlib.ex
+Compiling module xil_defaultlib.ex_mem
+Compiling module xil_defaultlib.mem
+Compiling module xil_defaultlib.mem_wb
+Compiling module xil_defaultlib.openmips
+Compiling module xil_defaultlib.inst_rom
+Compiling module xil_defaultlib.openmips_min_spoc
+Compiling module xil_defaultlib.openmips_min_spoc_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot openmips_min_spoc_tb_behav
