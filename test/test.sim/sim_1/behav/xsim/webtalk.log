@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Webtalk v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Fri Nov 23 00:16:15 2018
+# Process ID: 6743
+# Current directory: /home/wymt/code/system2018/OpenMIPS/test/test.sim/sim_1/behav/xsim
+# Command line: wbtcv -mode batch -source /home/wymt/code/system2018/OpenMIPS/test/test.sim/sim_1/behav/xsim/xsim.dir/openmips_min_spoc_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: /home/wymt/code/system2018/OpenMIPS/test/test.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: /home/wymt/code/system2018/OpenMIPS/test/test.sim/sim_1/behav/xsim/webtalk.jou
+#-----------------------------------------------------------
+source /home/wymt/code/system2018/OpenMIPS/test/test.sim/sim_1/behav/xsim/xsim.dir/openmips_min_spoc_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+webtalk_transmit: Time (s): cpu = 00:00:00.66 ; elapsed = 00:00:06 . Memory (MB): peak = 302.859 ; gain = 0.000 ; free physical = 11497 ; free virtual = 15618
+INFO: [Common 17-206] Exiting Webtalk at Fri Nov 23 00:16:20 2018...

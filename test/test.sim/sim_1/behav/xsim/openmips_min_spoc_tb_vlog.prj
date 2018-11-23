@@ -1,0 +1,21 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib "/home/wymt/code/system2018/OpenMIPS/Chapter4/defines.v" --include "../../../../../Chapter4" \
+"../../../../../Chapter4/ex.v" \
+"../../../../../Chapter4/ex_mem.v" \
+"../../../../../Chapter4/id.v" \
+"../../../../../Chapter4/id_ex.v" \
+"../../../../../Chapter4/if_id.v" \
+"../../../../../Chapter4/inst_rom.v" \
+"../../../../../Chapter4/mem.v" \
+"../../../../../Chapter4/mem_wb.v" \
+"../../../../../Chapter4/openmips.v" \
+"../../../../../Chapter4/openmips_min_spoc.v" \
+"../../../../../Chapter4/pc_reg.v" \
+"../../../../../Chapter4/regfile.v" \
+"../../../../../Chapter4/openmips_min_spoc_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

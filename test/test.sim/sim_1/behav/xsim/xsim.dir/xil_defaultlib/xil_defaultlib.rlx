@@ -1,0 +1,19 @@
+0.6
+2018.2
+Jun 14 2018
+20:07:38
+/home/wymt/code/system2018/OpenMIPS/Chapter4/defines.v,1542807034,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/ex.v,,,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/ex.v,1542852059,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/ex_mem.v,,ex,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/ex_mem.v,1542814749,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/id.v,,ex_mem,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/id.v,1542814745,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/id_ex.v,,id,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/id_ex.v,1542814738,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/if_id.v,,id_ex,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/if_id.v,1542814785,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/inst_rom.v,,if_id,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/inst_rom.v,1542901676,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/mem.v,,inst_rom,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/mem.v,1542814786,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/mem_wb.v,,mem,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/mem_wb.v,1542814787,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/openmips.v,,mem_wb,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/openmips.v,1542901173,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/openmips_min_spoc.v,,openmips,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/openmips_min_spoc.v,1542852420,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/pc_reg.v,,openmips_min_spoc,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/openmips_min_spoc_tb.v,1542852444,verilog,,,,openmips_min_spoc_tb,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/pc_reg.v,1542814788,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/regfile.v,,pc_reg,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/Chapter4/regfile.v,1542814784,verilog,,/home/wymt/code/system2018/OpenMIPS/Chapter4/openmips_min_spoc_tb.v,,regfile,,,../../../../../Chapter4,,,,,
+/home/wymt/code/system2018/OpenMIPS/test/test.sim/sim_1/behav/xsim/glbl.v,1529022455,verilog,,,,glbl,,,,,,,,
