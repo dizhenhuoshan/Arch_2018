@@ -1,7 +1,11 @@
 // riscv top module file
 // modification allowed for debugging purposes
 
-module riscv_top(
+module riscv_top
+#(
+	parameter SIM = 0						// whether in simulation
+)
+(
 	input wire 			EXCLK,
 	input wire			btnC,
 	output wire 		Tx,
@@ -58,7 +62,7 @@ ram #(.ADDR_WIDTH(RAM_ADDR_WIDTH))ram0(
 	.d_out(ram_dout)
 );
 
-assign 		ram_en = (cpumc_a[RAM_ADDR_WIDTH] == 1'b1) ? 1'b0 : 1'b1;
+assign 		ram_en = (cpumc_a[RAM_ADDR_WIDTH:RAM_ADDR_WIDTH-1] == 2'b11) ? 1'b0 : 1'b1;
 assign 		ram_a = cpumc_a[RAM_ADDR_WIDTH-1:0];
 
 //
@@ -72,6 +76,7 @@ wire		cpu_rdy;
 
 wire [31:0] cpu_dbgreg_dout;
 
+// fakecpu cpu0(
 cpu cpu0(
 	.clk_in(clk),
 	.rst_in(rst),
@@ -88,7 +93,7 @@ cpu cpu0(
 //
 // HCI: host communication interface block. Use controller to interact.
 //
-wire 						hci_active;
+wire 						hci_active_out;
 wire [ 7:0] 				hci_ram_din;
 wire [ 7:0] 				hci_ram_dout;
 wire [RAM_ADDR_WIDTH-1:0] 	hci_ram_a;
@@ -108,7 +113,7 @@ hci #(.SYS_CLK_FREQ(SYS_CLK_FREQ),
 	.rst(rst),
 	.tx(Tx),
 	.rx(Rx),
-	.active(hci_active),
+	.active(hci_active_out),
 	.ram_din(hci_ram_din),
 	.ram_dout(hci_ram_dout),
 	.ram_a(hci_ram_a),
@@ -123,9 +128,13 @@ hci #(.SYS_CLK_FREQ(SYS_CLK_FREQ),
 );
 
 assign hci_io_sel	= cpumc_a[2:0];
-assign hci_io_en	= (cpumc_a[RAM_ADDR_WIDTH] == 1'b1) ? 1'b1 : 1'b0;
+assign hci_io_en	= (cpumc_a[RAM_ADDR_WIDTH:RAM_ADDR_WIDTH-1] == 2'b11) ? 1'b1 : 1'b0;
 assign hci_io_wr	= cpumc_wr;
 assign hci_io_din	= cpumc_din;
+
+// hci is always disabled in simulation
+wire hci_active;
+assign hci_active 	= hci_active_out & ~SIM;
 
 // indicates debug break
 assign led = hci_active;
