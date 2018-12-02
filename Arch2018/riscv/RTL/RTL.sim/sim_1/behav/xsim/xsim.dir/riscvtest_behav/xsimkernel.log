@@ -1,0 +1,4 @@
+Running: xsim.dir/riscvtest_behav/xsimk -simmode gui -wdb riscvtest_behav.wdb -simrunnum 0 -socket 56881
+Design successfully loaded
+Design Loading Memory Usage: 43224 KB (Peak: 43280 KB)
+Design Loading CPU Usage: 20 ms

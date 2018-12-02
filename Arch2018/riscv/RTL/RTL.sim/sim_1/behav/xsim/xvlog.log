@@ -1,0 +1,24 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpu
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/fake_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fakemem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/mem_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/pc_reg.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/regfile.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/testsim.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module riscvtest

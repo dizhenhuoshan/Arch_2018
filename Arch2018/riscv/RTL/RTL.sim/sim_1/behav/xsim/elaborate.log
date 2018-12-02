@@ -1,0 +1,34 @@
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/wymt/XILINX_Vivado/Vivado/2018.2/bin/unwrapped/lnx64.o/xelab -wto d356d9746ea54548ab7af0300145fa93 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot riscvtest_behav xil_defaultlib.riscvtest xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/core.v" Line 4. Module cpu doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/pc_reg.v" Line 2. Module pc_reg doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/regfile.v" Line 2. Module regfile doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/if_id.v" Line 3. Module if_id doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/id.v" Line 2. Module id doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/id_ex.v" Line 2. Module id_ex doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/ex.v" Line 2. Module ex doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/ex_mem.v" Line 2. Module ex_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/mem.v" Line 2. Module mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/mem_wb.v" Line 2. Module mem_wb doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/fake_mem.v" Line 2. Module fakemem doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.pc_reg
+Compiling module xil_defaultlib.regfile
+Compiling module xil_defaultlib.if_id
+Compiling module xil_defaultlib.id
+Compiling module xil_defaultlib.id_ex
+Compiling module xil_defaultlib.ex
+Compiling module xil_defaultlib.ex_mem
+Compiling module xil_defaultlib.mem
+Compiling module xil_defaultlib.mem_wb
+Compiling module xil_defaultlib.fakemem
+Compiling module xil_defaultlib.cpu
+Compiling module xil_defaultlib.riscvtest
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot riscvtest_behav

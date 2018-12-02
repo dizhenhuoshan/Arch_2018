@@ -6,8 +6,8 @@ module cpu(
     input  wire                 rst_in,			// reset signal
 	  input  wire					        rdy_in,			// ready signal, pause cpu when low
 
-    input  wire [ 7:0]          mem_din,		// data input bus
-    output wire [ 7:0]          mem_dout,		// data output bus
+    input  wire [7:0]          mem_din,		// data input bus
+    output wire [7:0]          mem_dout,		// data output bus
     output wire [31:0]          mem_a,			// address bus (only 17:0 is used)
     output wire                 mem_wr,			// write/read signal (1 for write)
 
@@ -30,15 +30,15 @@ always @(posedge clk_in)
   begin
     if (rst_in)
       begin
-      
+
       end
     else if (!rdy_in)
       begin
-      
+
       end
     else
       begin
-      
+
       end
   end
 
