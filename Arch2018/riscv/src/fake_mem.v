@@ -8,7 +8,7 @@ module fakemem(
 
 reg[`InstBus]   inst_mem[0:63];
 
-initial $readmemh("/home/wymt/code/system2018/Arch2018/riscv/test.data", inst_mem);
+initial $readmemh("/home/wymt/code/system2018/Arch2018/riscv/testmake/test.data", inst_mem);
 
 always @ ( * ) begin
     if (rst == `RstEnable) begin

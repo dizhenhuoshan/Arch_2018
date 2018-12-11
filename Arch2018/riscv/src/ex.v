@@ -19,8 +19,24 @@ module ex(
 );
 
     reg[`RegBus]        op_imm_res;
-    reg[`RegBus]        other_res;
+    reg[`RegBus]        op_op_res;
 
+    wire                reg1_eq_reg2; // if reg1 == reg2, thisi is 1'b1;
+    wire                reg1_lt_reg2; // if reg1 < reg2, this is 1'b1;
+    wire[`RegBus]       reg2_i_mux;   // reg2's two's complement representation;
+    wire[`RegBus]       result_sum;   // reg1 + reg2;
+
+    assign reg1_eq_reg2 = reg1_i == reg2_i;
+    assign reg2_i_mux = ((funct7_i == `SUB_FUNCT7) ||
+                        (funct3_i ==  `SLT_FUNCT3))? (~reg2_i) + 1 : reg2_i;
+    assign result_sum = reg1_i + reg2_i_mux;
+    assign reg1_lt_reg2 = (funct3_i == `SLT_FUNCT3)? ((reg1_i[31] & !reg2_i[31])
+                        || (!reg1_i[31] && !reg2_i[31] && result_sum[31])
+                        || (reg1_i[31] && reg2_i[31] && result_sum[31])):
+                        (reg1_i < reg2_i);
+
+
+    // for OP_IMM
     always @ ( * ) begin
         if (rst == `RstEnable) begin
             op_imm_res <= `ZeroWord;
@@ -36,20 +52,26 @@ module ex(
         end
     end
 
+    // for OP_OP
     always @ ( * ) begin
         if (rst == `RstEnable) begin
-            other_res <= `ZeroWord;
+            op_op_res <= `ZeroWord;
         end else if (rdy == `PauseDisable) begin
-            case (opcode_i)
-                `LUI_OP: begin
-                    other_res <= reg1_i;
+            case (funct3_i)
+                `ADD_SUB_FUNCT3: begin
+                    op_op_res <= result_sum;
+                end
+                `SLT_FUNCT3, `SLTU_FUNCT3: begin
+                    op_op_res <= reg1_lt_reg2;
                 end
                 default: begin
+                    op_imm_res <= `ZeroWord;
                 end
             endcase
         end
     end
 
+    // final mux
     always @ ( * ) begin
         if (rdy == `PauseDisable) begin
             wd_o    <= wd_i;
@@ -58,8 +80,20 @@ module ex(
                 `OP_IMM_OP: begin
                     wdata_o <= op_imm_res;
                 end
+                `OP_OP: begin
+                    wdata_o <= op_op_res;
+                end
                 `LUI_OP: begin
-                    wdata_o <= other_res;
+                    wdata_o <= reg1_i;
+                end
+                `AUIPC_OP: begin
+                    wdata_o <= reg1_i;
+                end
+                `JAL_OP: begin
+                    wdata_o <= reg1_i;
+                end
+                `JALR_OP: begin
+                    wdata_o <= reg1_i;
                 end
                 default: begin
                     wdata_o <= `ZeroWord;

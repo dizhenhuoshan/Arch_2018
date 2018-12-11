@@ -68,11 +68,25 @@ wire[`RegAddrBus]       reg2_addr;
 wire[`RegBus]           reg1_data;
 wire[`RegBus]           reg2_data;
 
+// ctrl signal
+wire[`StallBus]         stall_signal;
+wire                    id_stall_req;
+wire[`CntBus2]          idex_cnt_2;
+wire[`CntBus2]          exid_cnt_2;
+
+// branch
+wire                    branch_enable;
+wire[`InstAddrBus]      branch_addr;
+
+
 pc_reg pc_reg0(
     .clk(clk_in),
     .rst(rst_in),
     .rdy(rdy_in),
-    .pc(inst_addr)
+    .pc(inst_addr),
+    .stall_sign(stall_signal),
+    .branch_enable_i(branch_enable),
+    .branch_addr_i(branch_addr)
 );
 
 regfile regfile0(
@@ -97,7 +111,8 @@ if_id if_id0(
     .if_pc(inst_addr),
     .if_inst(inst_data),
     .id_pc(id_pc_i),
-    .id_inst(id_inst_i)
+    .id_inst(id_inst_i),
+    .stall_sign(stall_signal)
 );
 
 id id0(
@@ -107,6 +122,13 @@ id id0(
     .inst_i(id_inst_i),
     .reg1_data_i(reg1_data),
     .reg2_data_i(reg2_data),
+    .ex_wreg_i(ex_wreg_o),
+    .ex_wd_i(ex_wd_o),
+    .ex_wdata_i(ex_wdata_o),
+    .mem_wreg_i(mem_wreg_o),
+    .mem_wd_i(mem_wd_o),
+    .mem_wdata_i(mem_wdata_o),
+    .cnt2_i(exid_cnt_2),
     .reg1_read_o(reg1_read),
     .reg2_read_o(reg2_read),
     .reg1_addr_o(reg1_addr),
@@ -117,7 +139,11 @@ id id0(
     .reg1_o(id_reg1_o),
     .reg2_o(id_reg2_o),
     .wd_o(id_wd_o),
-    .wreg_o(id_wreg_o)
+    .wreg_o(id_wreg_o),
+    .branch_enable_o(branch_enable),
+    .branch_addr_o(branch_addr),
+    .id_stall_req_o(id_stall_req),
+    .cnt2_o(idex_cnt_2)
 );
 
 id_ex id_ex0(
@@ -137,7 +163,10 @@ id_ex id_ex0(
     .ex_reg1(ex_reg1_i),
     .ex_reg2(ex_reg2_i),
     .ex_wd(ex_wd_i),
-    .ex_wreg(ex_wreg_i)
+    .ex_wreg(ex_wreg_i),
+    .stall_sign(stall_signal),
+    .cnt2_i(idex_cnt_2),
+    .cnt2_o(exid_cnt_2)
 );
 
 ex ex0(
@@ -164,7 +193,8 @@ ex_mem ex_mem0(
     .ex_wdata(ex_wdata_o),
     .mem_wd(mem_wd_i),
     .mem_wreg(mem_wreg_i),
-    .mem_wdata(mem_wdata_i)
+    .mem_wdata(mem_wdata_i),
+    .stall_sign(stall_signal)
 );
 
 mem mem0(
@@ -187,7 +217,16 @@ mem_wb mem_wb0(
     .mem_wdata(mem_wdata_o),
     .wb_wd(wb_wd_i),
     .wb_wreg(wb_wreg_i),
-    .wb_wdata(wb_wdata_i)
+    .wb_wdata(wb_wdata_i),
+    .stall_sign(stall_signal)
+);
+
+ctrl ctrl0(
+    .clk(clk_in),
+    .rst(rst_in),
+    .rdy(rdy_in),
+    .id_stall_req_i(id_stall_req),
+    .stall_sign(stall_signal)
 );
 
 fakemem fakemem0(

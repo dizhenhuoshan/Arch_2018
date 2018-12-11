@@ -1,5 +1,7 @@
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/core.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module cpu
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/ctrl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/ex.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module ex
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/ex_mem.v" into library xil_defaultlib
@@ -8,6 +10,7 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018
 INFO: [VRFC 10-311] analyzing module fakemem
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/id.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2458] undeclared symbol pc_i_plus_4, assumed default net type wire [/home/wymt/code/system2018/Arch2018/riscv/src/id.v:60]
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/id_ex.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module id_ex
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/if_id.v" into library xil_defaultlib

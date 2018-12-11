@@ -24,13 +24,14 @@
 `define OpcodeBus           6:0
 `define FunctBus3           2:0
 `define FunctBus7           6:0
-
+`define StallBus            5:0
+`define CntBus2             2:0
 
 // For Inst opcode
 `define NON_OP              7'b0000000 // Nothing
-`define OP_IMM_OP           7'b0010011 // ADDI SLTI SLTIU XORI ORI ANDI
-`define OP_OP               7'b0110011 // ADD SUB SLL SLT SLTU XOR SRL SRA OR AND
-`define LUI_OP              7'b0110111 // LUI
+`define OP_IMM_OP           7'b0010011 // ADDI* SLTI* SLTIU* XORI ORI ANDI
+`define OP_OP               7'b0110011 // ADD* SUB* SLL SLT* SLTU* XOR SRL SRA OR AND
+`define LUI_OP              7'b0110111 // LUI*
 `define AUIPC_OP            7'b0010111 // AUIPC
 `define JAL_OP              7'b1101111 // JAL
 `define JALR_OP             7'b1100111 // JALR
@@ -41,10 +42,40 @@
 // For Inst funct3
 `define NON_FUNCT3          3'b000
 `define ADDI_FUNCT3         3'b000
+`define SLTI_FUNCT3         3'b010
+`define SLTIU_FUNCT3        3'b011
+`define XORI_FUNCT3         3'b100
 `define ORI_FUNCT3          3'b110
+`define ANDI_FUNCT3         3'b111
+`define ADD_SUB_FUNCT3      3'b000
+`define SLL_FUNCT3          3'b001
+`define SLT_FUNCT3          3'b010
+`define SLTU_FUNCT3         3'b011
+`define XOR_FUNCT3          3'b100
+`define SRL_SRA_FUNCT3      3'b101
+`define OR_FUNCT3           3'b110
+`define AND_FUNCT3          3'b111
+`define BEQ_FUNCT3          3'b000
+`define BNE_FUNCT3          3'b001
+`define BLT_FUNCT3          3'b100
+`define BGE_FUNCT3          3'b101
+`define BLTU_FUNCT3         3'b110
+`define BGEU_FUNCT3         3'b111
+`define LB_FUNCT3           3'b000
+`define LH_FUNCT3           3'b001
+`define LW_FUNCT3           3'b010
+`define LBU_FUNCT3          3'b100
+`define LHU_FUNCT3          3'b101
+`define SB_FUNCT3           3'b000
+`define SH_FUNCT3           3'b001
+`define SW_FUNCT3           3'b010
 
 // For Inst funct7
 `define NON_FUNCT7          7'b0000000 // Nothing
+`define ADD_FUNCT7          7'b0000000
+`define SUB_FUNCT7          7'b0100000
+`define SRL_FUNCT7          7'b0000000
+`define SRA_FUNCT7          7'b0100000
 
 // For General
 `define RegNum              32

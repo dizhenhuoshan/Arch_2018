@@ -5,6 +5,8 @@ module if_id(
     input wire                  rst,
     input wire                  rdy,
 
+    // from ctrl
+    input wire[`StallBus]       stall_sign,
     // from if
     input wire[`InstAddrBus]    if_pc,
     input wire[`InstBus]        if_inst,
@@ -15,10 +17,10 @@ module if_id(
 );
 
     always @(posedge clk) begin
-        if (rst == `RstEnable)  begin
+        if ((rst == `RstEnable) || ((stall_sign[1] == 1'b1) && (stall_sign[2] == 1'b0)))  begin
             id_pc <= `ZeroWord;
             id_inst <= `ZeroWord;
-        end else if (rdy == `PauseDisable) begin
+        end else if ((rdy == `PauseDisable) && (stall_sign[1] == 1'b0)) begin
             id_pc <= if_pc;
             id_inst <= if_inst;
         end

@@ -5,6 +5,9 @@ module ex_mem(
     input wire                  rst,
     input wire                  rdy,
 
+    // ctrl signal
+    input wire[`StallBus]       stall_sign,
+
     // read from ex
     input wire[`RegAddrBus]     ex_wd,
     input wire                  ex_wreg,
@@ -17,11 +20,11 @@ module ex_mem(
 );
 
     always @ (posedge clk) begin
-        if (rst ==  `RstEnable) begin
+        if ((rst ==  `RstEnable) || ((stall_sign[3] == 1'b1) && (stall_sign[4] == 1'b0))) begin
             mem_wd      <= `NOPRegAddr;
             mem_wreg    <= `WriteDisable;
             mem_wdata   <= `ZeroWord;
-        end else if (rdy == `PauseDisable) begin
+        end else if ((rdy == `PauseDisable) && (stall_sign[3] == 1'b0)) begin
             mem_wd      <= ex_wd;
             mem_wreg    <= ex_wreg;
             mem_wdata   <= ex_wdata;
