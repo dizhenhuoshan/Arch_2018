@@ -1,17 +1,21 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  \
+"../../../../../src/common/block_ram/block_ram.v" \
 "../../../../../src/core.v" \
 "../../../../../src/ctrl.v" \
-"../../../../../src/ex.v" \
 "../../../../../src/ex_mem.v" \
-"../../../../../src/fake_mem.v" \
-"../../../../../src/id.v" \
 "../../../../../src/id_ex.v" \
 "../../../../../src/if_id.v" \
-"../../../../../src/mem.v" \
+"../../../../../src/mcu.v" \
 "../../../../../src/mem_wb.v" \
 "../../../../../src/pc_reg.v" \
+"../../../../../src/real_mem.v" \
 "../../../../../src/regfile.v" \
+"../../../../../src/spoc.v" \
+"../../../../../src/stage_ex.v" \
+"../../../../../src/stage_id.v" \
+"../../../../../src/stage_if.v" \
+"../../../../../src/stage_mem.v" \
 "../../../../../src/testsim.v" \
 
 # compile glbl module

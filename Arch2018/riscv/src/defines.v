@@ -21,15 +21,19 @@
 `define RegBus              31:0
 `define InstAddrBus         31:0
 `define InstBus             31:0
+`define MemAddrBus          16:0
+`define MemDataBus          7:0
 `define OpcodeBus           6:0
 `define FunctBus3           2:0
 `define FunctBus7           6:0
 `define StallBus            5:0
-`define CntBus2             2:0
+`define CntBus2             1:0
+`define CntBus4             2:0
+`define CntBus8             3:0
 
 // For Inst opcode
 `define NON_OP              7'b0000000 // Nothing
-`define OP_IMM_OP           7'b0010011 // ADDI* SLTI* SLTIU* XORI ORI ANDI
+`define OP_IMM_OP           7'b0010011 // ADDI* SLTI* SLTIU* XORI* ORI* ANDI*
 `define OP_OP               7'b0110011 // ADD* SUB* SLL SLT* SLTU* XOR SRL SRA OR AND
 `define LUI_OP              7'b0110111 // LUI*
 `define AUIPC_OP            7'b0010111 // AUIPC

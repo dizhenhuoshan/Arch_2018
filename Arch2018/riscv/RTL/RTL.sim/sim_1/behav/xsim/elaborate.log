@@ -5,32 +5,40 @@ Using 8 slave threads.
 Starting static elaboration
 Completed static elaboration
 Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/spoc.v" Line 2. Module spoc doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/core.v" Line 4. Module cpu doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/pc_reg.v" Line 2. Module pc_reg doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/regfile.v" Line 2. Module regfile doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/stage_if.v" Line 3. Module stage_if doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/if_id.v" Line 3. Module if_id doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/id.v" Line 2. Module id doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/stage_id.v" Line 2. Module stage_id doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/id_ex.v" Line 2. Module id_ex doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/ex.v" Line 2. Module ex doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/stage_ex.v" Line 2. Module stage_ex doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/ex_mem.v" Line 2. Module ex_mem doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/mem.v" Line 2. Module mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/stage_mem.v" Line 2. Module stage_mem doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/mem_wb.v" Line 2. Module mem_wb doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/mcu.v" Line 2. Module mcu doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/ctrl.v" Line 2. Module ctrl doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/fake_mem.v" Line 2. Module fakemem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/real_mem.v" Line 2. Module real_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/wymt/code/system2018/Arch2018/riscv/src/common/block_ram/block_ram.v" Line 62. Module single_port_ram_sync(ADDR_WIDTH=17) doesn't have a timescale but at least one module in design has a timescale.
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
 Compiling module xil_defaultlib.pc_reg
 Compiling module xil_defaultlib.regfile
+Compiling module xil_defaultlib.stage_if
 Compiling module xil_defaultlib.if_id
-Compiling module xil_defaultlib.id
+Compiling module xil_defaultlib.stage_id
 Compiling module xil_defaultlib.id_ex
-Compiling module xil_defaultlib.ex
+Compiling module xil_defaultlib.stage_ex
 Compiling module xil_defaultlib.ex_mem
-Compiling module xil_defaultlib.mem
+Compiling module xil_defaultlib.stage_mem
 Compiling module xil_defaultlib.mem_wb
+Compiling module xil_defaultlib.mcu
 Compiling module xil_defaultlib.ctrl
-Compiling module xil_defaultlib.fakemem
 Compiling module xil_defaultlib.cpu
+Compiling module xil_defaultlib.single_port_ram_sync(ADDR_WIDTH=...
+Compiling module xil_defaultlib.real_mem
+Compiling module xil_defaultlib.spoc
 Compiling module xil_defaultlib.riscvtest
 Compiling module xil_defaultlib.glbl
 Built simulation snapshot riscvtest_behav

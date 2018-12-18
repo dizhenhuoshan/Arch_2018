@@ -14,9 +14,14 @@ module cpu(
 	output wire [31:0]			dbgreg_dout		// cpu register output (debugging demo)
 );
 
-// link fakemem
+// link pc_reg to if
 wire[`InstAddrBus]      inst_addr;
-wire[`InstBus]          inst_data;
+
+// link if to if_id
+wire[`CntBus8]          ifid_cnt;
+wire[`CntBus8]          idif_cnt;
+wire[`InstAddrBus]      if_pc_o;
+wire[`InstBus]          if_inst_o;
 
 // link if_id to id
 wire[`InstAddrBus]      id_pc_i;
@@ -28,6 +33,7 @@ wire[`FunctBus3]        id_funct3_o;
 wire[`FunctBus7]        id_funct7_o;
 wire[`RegBus]           id_reg1_o;
 wire[`RegBus]           id_reg2_o;
+wire[`RegBus]           id_ls_offset_o;
 wire[`RegAddrBus]       id_wd_o;
 wire                    id_wreg_o;
 
@@ -37,6 +43,7 @@ wire[`FunctBus3]        ex_funct3_i;
 wire[`FunctBus7]        ex_funct7_i;
 wire[`RegBus]           ex_reg1_i;
 wire[`RegBus]           ex_reg2_i;
+wire[`RegBus]           ex_ls_offset_i;
 wire[`RegAddrBus]       ex_wd_i;
 wire                    ex_wreg_i;
 
@@ -44,16 +51,24 @@ wire                    ex_wreg_i;
 wire[`RegAddrBus]       ex_wd_o;
 wire[`RegBus]           ex_wdata_o;
 wire                    ex_wreg_o;
+wire[`OpcodeBus]        ex_opcode_o;
+wire[`FunctBus3]        ex_funct3_o;
+wire[`InstAddrBus]      ex_mem_addr_o;
 
 // link ex_mem to mem
 wire[`RegAddrBus]       mem_wd_i;
 wire[`RegBus]           mem_wdata_i;
 wire                    mem_wreg_i;
+wire[`OpcodeBus]        mem_opcode_i;
+wire[`FunctBus3]        mem_funct3_i;
+wire[`InstAddrBus]      mem_mem_addr_i;
 
 // link mem to mem_wb
 wire[`RegAddrBus]       mem_wd_o;
 wire[`RegBus]           mem_wdata_o;
 wire                    mem_wreg_o;
+wire[`CntBus8]          memwb_cnt;
+wire[`CntBus8]          wbmem_cnt;
 
 // link mem_wb to reg
 wire[`RegAddrBus]       wb_wd_i;
@@ -68,11 +83,16 @@ wire[`RegAddrBus]       reg2_addr;
 wire[`RegBus]           reg1_data;
 wire[`RegBus]           reg2_data;
 
+// mcu
+wire[`InstAddrBus]      if_mem_addr;
+wire[`InstAddrBus]      mem_mem_addr;
+wire                    mem_write_enable;
+wire                    stage_mem_busy_sign;
+
 // ctrl signal
 wire[`StallBus]         stall_signal;
-wire                    id_stall_req;
-wire[`CntBus2]          idex_cnt_2;
-wire[`CntBus2]          exid_cnt_2;
+wire                    if_stall_req;
+wire                    mem_stall_req;
 
 // branch
 wire                    branch_enable;
@@ -104,18 +124,37 @@ regfile regfile0(
     .rdata2(reg2_data)
 );
 
+stage_if if0(
+    .rst(rst_in),
+    .rdy(rdy_in),
+    .pc_i(inst_addr),
+    .stall_sign(stall_signal),
+    .if_cnt_i(idif_cnt),
+    .mem_data_i(mem_din),
+    .mem_addr_o(if_mem_addr),
+    .mem_we_o(mem_write_enable),
+    .branch_enable_o(branch_enable),
+    .branch_addr_o(branch_addr),
+    .if_stall_req_o(if_stall_req),
+    .pc_o(if_pc_o),
+    .inst_o(if_inst_o),
+    .if_cnt_o(ifid_cnt)
+);
+
 if_id if_id0(
     .clk(clk_in),
     .rst(rst_in),
     .rdy(rdy_in),
-    .if_pc(inst_addr),
-    .if_inst(inst_data),
+    .if_pc(if_pc_o),
+    .if_inst(if_inst_o),
+    .if_cnt_i(ifid_cnt),
+    .if_cnt_o(idif_cnt),
     .id_pc(id_pc_i),
     .id_inst(id_inst_i),
     .stall_sign(stall_signal)
 );
 
-id id0(
+stage_id id0(
     .rst(rst_in),
     .rdy(rdy_in),
     .pc_i(id_pc_i),
@@ -128,7 +167,6 @@ id id0(
     .mem_wreg_i(mem_wreg_o),
     .mem_wd_i(mem_wd_o),
     .mem_wdata_i(mem_wdata_o),
-    .cnt2_i(exid_cnt_2),
     .reg1_read_o(reg1_read),
     .reg2_read_o(reg2_read),
     .reg1_addr_o(reg1_addr),
@@ -138,12 +176,11 @@ id id0(
     .funct7_o(id_funct7_o),
     .reg1_o(id_reg1_o),
     .reg2_o(id_reg2_o),
+    .ls_offset_o(id_ls_offset_o),
     .wd_o(id_wd_o),
     .wreg_o(id_wreg_o),
     .branch_enable_o(branch_enable),
-    .branch_addr_o(branch_addr),
-    .id_stall_req_o(id_stall_req),
-    .cnt2_o(idex_cnt_2)
+    .branch_addr_o(branch_addr)
 );
 
 id_ex id_ex0(
@@ -155,6 +192,7 @@ id_ex id_ex0(
     .id_funct7(id_funct7_o),
     .id_reg1(id_reg1_o),
     .id_reg2(id_reg2_o),
+    .id_ls_offset(id_ls_offset_o),
     .id_wd(id_wd_o),
     .id_wreg(id_wreg_o),
     .ex_opcode(ex_opcode_i),
@@ -162,14 +200,13 @@ id_ex id_ex0(
     .ex_funct7(ex_funct7_i),
     .ex_reg1(ex_reg1_i),
     .ex_reg2(ex_reg2_i),
+    .ex_ls_offset(ex_ls_offset_i),
     .ex_wd(ex_wd_i),
     .ex_wreg(ex_wreg_i),
-    .stall_sign(stall_signal),
-    .cnt2_i(idex_cnt_2),
-    .cnt2_o(exid_cnt_2)
+    .stall_sign(stall_signal)
 );
 
-ex ex0(
+stage_ex ex0(
     .rst(rst_in),
     .rdy(rdy_in),
     .opcode_i(ex_opcode_i),
@@ -177,8 +214,12 @@ ex ex0(
     .funct7_i(ex_funct7_i),
     .reg1_i(ex_reg1_i),
     .reg2_i(ex_reg2_i),
+    .ls_offset_i(ex_ls_offset_i),
     .wd_i(ex_wd_i),
     .wreg_i(ex_wreg_i),
+    .opcode_o(ex_opcode_o),
+    .funct3_o(ex_funct3_o),
+    .mem_addr_o(ex_mem_addr_o),
     .wd_o(ex_wd_o),
     .wreg_o(ex_wreg_o),
     .wdata_o(ex_wdata_o)
@@ -188,24 +229,41 @@ ex_mem ex_mem0(
     .clk(clk_in),
     .rst(rst_in),
     .rdy(rdy_in),
+    .stall_sign(stall_signal),
     .ex_wd(ex_wd_o),
     .ex_wreg(ex_wreg_o),
     .ex_wdata(ex_wdata_o),
+    .ex_opcode(ex_opcode_o),
+    .ex_funct3(ex_funct3_o),
+    .ex_mem_addr(ex_mem_addr_o),
     .mem_wd(mem_wd_i),
     .mem_wreg(mem_wreg_i),
     .mem_wdata(mem_wdata_i),
-    .stall_sign(stall_signal)
+    .mem_opcode(mem_opcode_i),
+    .mem_funct3(mem_funct3_i),
+    .mem_mem_addr(mem_mem_addr_i)
 );
 
-mem mem0(
+stage_mem mem0(
     .rst(rst_in),
     .rdy(rdy_in),
+    .opcode_i(mem_opcode_i),
+    .funct3_i(mem_funct3_i),
     .wd_i(mem_wd_i),
     .wreg_i(mem_wreg_i),
     .wdata_i(mem_wdata_i),
+    .mem_addr_i(mem_mem_addr_i),
+    .mem_cnt_i(wbmem_cnt),
+    .mem_data_i(mem_din),
     .wd_o(mem_wd_o),
     .wreg_o(mem_wreg_o),
-    .wdata_o(mem_wdata_o)
+    .wdata_o(mem_wdata_o),
+    .mem_stall_req_o(mem_stall_req),
+    .stage_mem_busy_o(stage_mem_busy_sign),
+    .mem_cnt_o(memwb_cnt),
+    .mem_we_o(mem_write_enable),
+    .mem_addr_o(mem_mem_addr),
+    .mem_data_o(mem_dout)
 );
 
 mem_wb mem_wb0(
@@ -215,25 +273,32 @@ mem_wb mem_wb0(
     .mem_wd(mem_wd_o),
     .mem_wreg(mem_wreg_o),
     .mem_wdata(mem_wdata_o),
+    .mem_cnt_i(memwb_cnt),
+    .mem_cnt_o(wbmem_cnt),
     .wb_wd(wb_wd_i),
     .wb_wreg(wb_wreg_i),
     .wb_wdata(wb_wdata_i),
     .stall_sign(stall_signal)
 );
 
+mcu mcu0(
+    .rst(rst_in),
+    .rdy(rdy_in),
+    .write_enable_i(mem_write_enable),
+    .stage_mem_busy(stage_mem_busy_sign),
+    .if_mem_addr_i(if_mem_addr),
+    .mem_mem_addr_i(mem_mem_addr),
+    .write_enable_o(mem_wr),
+    .mem_addr_o(mem_a)
+);
+
 ctrl ctrl0(
     .clk(clk_in),
     .rst(rst_in),
     .rdy(rdy_in),
-    .id_stall_req_i(id_stall_req),
+    .if_stall_req_i(if_stall_req),
+    .mem_stall_req_i(mem_stall_req),
     .stall_sign(stall_signal)
-);
-
-fakemem fakemem0(
-    .rst(rst_in),
-    .rdy(rdy_in),
-    .addr(inst_addr),
-    .inst(inst_data)
 );
 
 endmodule

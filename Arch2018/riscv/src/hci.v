@@ -558,7 +558,7 @@ always @*
 
     endcase
     end
-    
+
   end
 
 assign active      = (q_state != S_DISABLED);
