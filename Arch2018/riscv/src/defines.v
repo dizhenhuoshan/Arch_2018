@@ -34,14 +34,14 @@
 // For Inst opcode
 `define NON_OP              7'b0000000 // Nothing
 `define OP_IMM_OP           7'b0010011 // ADDI* SLTI* SLTIU* XORI* ORI* ANDI*
-`define OP_OP               7'b0110011 // ADD* SUB* SLL SLT* SLTU* XOR SRL SRA OR AND
+`define OP_OP               7'b0110011 // ADD* SUB* SLL/ SLT* SLTU* XOR/ SRL/ SRA/ OR* AND/
 `define LUI_OP              7'b0110111 // LUI*
-`define AUIPC_OP            7'b0010111 // AUIPC
-`define JAL_OP              7'b1101111 // JAL
-`define JALR_OP             7'b1100111 // JALR
-`define BRANCH_OP           7'b1100011 // BEQ BNE BLT BGE BLTU BGEU
-`define LOAD_OP             7'b0000011 // LB LH LW LBU LHU
-`define STORE_OP            7'b0100011 // SB SH SW
+`define AUIPC_OP            7'b0010111 // AUIPC*
+`define JAL_OP              7'b1101111 // JAL*
+`define JALR_OP             7'b1100111 // JALR/
+`define BRANCH_OP           7'b1100011 // BEQ/ BNE/ BLT/ BGE/ BLTU/ BGEU/
+`define LOAD_OP             7'b0000011 // LB* LH* LW* LBU* LHU*
+`define STORE_OP            7'b0100011 // SB* SH* SW*
 
 // For Inst funct3
 `define NON_FUNCT3          3'b000

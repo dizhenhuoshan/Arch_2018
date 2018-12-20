@@ -2,11 +2,11 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Tue Dec 18 16:17:11 2018
-# Process ID: 5529
+# Start of session at: Thu Dec 20 09:23:59 2018
+# Process ID: 6181
 # Current directory: /home/wymt/code/system2018/Arch2018/riscv/RTL/RTL.runs/impl_1
-# Command line: vivado -log spoc.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source spoc.tcl -notrace
-# Log file: /home/wymt/code/system2018/Arch2018/riscv/RTL/RTL.runs/impl_1/spoc.vdi
+# Command line: vivado -log riscv_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source riscv_top.tcl -notrace
+# Log file: /home/wymt/code/system2018/Arch2018/riscv/RTL/RTL.runs/impl_1/riscv_top.vdi
 # Journal file: /home/wymt/code/system2018/Arch2018/riscv/RTL/RTL.runs/impl_1/vivado.jou
 #-----------------------------------------------------------
-source spoc.tcl -notrace
+source riscv_top.tcl -notrace

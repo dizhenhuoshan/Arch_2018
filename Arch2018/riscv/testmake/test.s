@@ -4,10 +4,21 @@
 _start:
 	lui x1, 0x10100		# x1 = 0x10100000
 	lui x3, 0
+	lw x4, 0(x3)		# x4 = 0x101000b7
 	ori x1, x1, 0x101	# x1 = x1 | 0x101	= 0x10100101
 	ori x2, x1, 0x010	# x2 = x1 | 0x010 	= 0x10100111
 	or x1, x1, x2		# x1 = x1 | x2		= 0x10100111
-	lw x4, 0(x3)		# x4 = 0x101000b7
+
+	sw x4, 1024(x0)
+	sw x4, 1028(x0)
+	jal baka
+	lui x7, 0
+	lui x8, 0
+
+baka:
+
+
+	lw x5, 1026(x0)
 	# andi x3, x1, 0x0ce	# x3 = x1 & 0x0ce	= 0x00000000
 	# and x1, x3, x1		# x1 = x3 & x1		= 0x00000000
 	# xori x4, x1, 0x7f0	# x4 = x1 ^ 0x7f0	= 0x000007f0

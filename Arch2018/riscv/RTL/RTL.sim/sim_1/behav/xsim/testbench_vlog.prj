@@ -1,0 +1,31 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../src/common/block_ram/block_ram.v" \
+"../../../../../src/core.v" \
+"../../../../../src/ctrl.v" \
+"../../../../../src/ex_mem.v" \
+"../../../../../src/common/fifo/fifo.v" \
+"../../../../../src/hci.v" \
+"../../../../../src/id_ex.v" \
+"../../../../../src/if_id.v" \
+"../../../../../src/mcu.v" \
+"../../../../../src/mem_wb.v" \
+"../../../../../src/pc_reg.v" \
+"../../../../../src/ram.v" \
+"../../../../../src/regfile.v" \
+"../../../../../src/riscv_top.v" \
+"../../../../../src/stage_ex.v" \
+"../../../../../src/stage_id.v" \
+"../../../../../src/stage_if.v" \
+"../../../../../src/stage_mem.v" \
+"../../../../../src/common/uart/uart.v" \
+"../../../../../src/common/uart/uart_baud_clk.v" \
+"../../../../../src/common/uart/uart_rx.v" \
+"../../../../../src/common/uart/uart_tx.v" \
+"../../../../../sim/testbench.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

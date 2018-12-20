@@ -7,6 +7,10 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018
 INFO: [VRFC 10-311] analyzing module ctrl
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/ex_mem.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/common/fifo/fifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/hci.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module hci
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/id_ex.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module id_ex
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/if_id.v" into library xil_defaultlib
@@ -17,12 +21,12 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018
 INFO: [VRFC 10-311] analyzing module mem_wb
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/pc_reg.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module pc_reg
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/real_mem.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module real_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ram
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/regfile.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module regfile
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/spoc.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module spoc
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/riscv_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module riscv_top
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/stage_ex.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module stage_ex
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/stage_id.v" into library xil_defaultlib
@@ -32,5 +36,13 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018
 INFO: [VRFC 10-311] analyzing module stage_if
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/stage_mem.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module stage_mem
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/testsim.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module riscvtest
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/common/uart/uart.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/common/uart/uart_baud_clk.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_baud_clk
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/common/uart/uart_rx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/src/common/uart/uart_tx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/wymt/code/system2018/Arch2018/riscv/sim/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module testbench

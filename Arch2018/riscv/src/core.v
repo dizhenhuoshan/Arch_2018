@@ -22,6 +22,8 @@ wire[`CntBus8]          ifid_cnt;
 wire[`CntBus8]          idif_cnt;
 wire[`InstAddrBus]      if_pc_o;
 wire[`InstBus]          if_inst_o;
+wire                    branch_ctrl;
+
 
 // link if_id to id
 wire[`InstAddrBus]      id_pc_i;
@@ -86,6 +88,7 @@ wire[`RegBus]           reg2_data;
 // mcu
 wire[`InstAddrBus]      if_mem_addr;
 wire[`InstAddrBus]      mem_mem_addr;
+wire                    if_write_enable;
 wire                    mem_write_enable;
 wire                    stage_mem_busy_sign;
 
@@ -132,9 +135,8 @@ stage_if if0(
     .if_cnt_i(idif_cnt),
     .mem_data_i(mem_din),
     .mem_addr_o(if_mem_addr),
-    .mem_we_o(mem_write_enable),
-    .branch_enable_o(branch_enable),
-    .branch_addr_o(branch_addr),
+    .mem_we_o(if_write_enable),
+    .branch_sign_o(branch_ctrl),
     .if_stall_req_o(if_stall_req),
     .pc_o(if_pc_o),
     .inst_o(if_inst_o),
@@ -148,6 +150,7 @@ if_id if_id0(
     .if_pc(if_pc_o),
     .if_inst(if_inst_o),
     .if_cnt_i(ifid_cnt),
+    .branch_sign_i(branch_ctrl),
     .if_cnt_o(idif_cnt),
     .id_pc(id_pc_i),
     .id_inst(id_inst_i),
@@ -284,8 +287,9 @@ mem_wb mem_wb0(
 mcu mcu0(
     .rst(rst_in),
     .rdy(rdy_in),
-    .write_enable_i(mem_write_enable),
     .stage_mem_busy(stage_mem_busy_sign),
+    .if_write_enable_i(if_write_enable),
+    .mem_write_enable_i(mem_write_enable),
     .if_mem_addr_i(if_mem_addr),
     .mem_mem_addr_i(mem_mem_addr),
     .write_enable_o(mem_wr),

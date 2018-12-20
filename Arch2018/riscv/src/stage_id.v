@@ -51,6 +51,11 @@ wire [`FunctBus7]   funct7 = inst_i[31:25];
 reg[`RegBus]    imm;
 
 assign pc_i_plus_4 = pc_i + 4;
+assign reg1_eq_reg2 = reg1_o == reg2_o;
+assign reg1_lt_reg2 = reg1_o < reg2_o;
+assign reg1_lt_reg2_u = {1'b0, reg1_o} < {1'b0, reg2_o};
+assign reg1_gt_reg2 = reg1_o > reg2_o;
+assign reg1_gt_reg2_u = {1'b0, reg1_o} > {1'b0, reg2_o};
 
 // InstValid bit
 reg     inst_valid;
@@ -132,29 +137,78 @@ reg     inst_valid;
                     wd_o        <= inst_i[11:7];
                     inst_valid  <= `InstValid;
                     funct7_o    <= `NON_FUNCT7;
+                    funct3_o    <= funct3;
+                    funct7_o    <= funct7;
+                end
+                `JAL_OP: begin
+                    branch_enable_o <= 1'b1;
+                    branch_addr_o   <= {{12{inst_i[31]}}, inst_i[19:12], inst_i[20], inst_i[30:21], 1'b0} + pc_i;
+                    wreg_o          <= `WriteEnable;
+                    opcode_o        <= `JAL_OP;
+                    funct3_o        <= `NON_FUNCT3;
+                    reg1_read_o     <= `False_v;
+                    reg2_read_o     <= `False_v;
+                    imm             <= pc_i_plus_4;
+                    wd_o            <= inst_i[11:7];
+                    inst_valid      <= `InstValid;
+                end
+                `JALR_OP: begin
+                    branch_enable_o <= 1'b1;
+                    wreg_o          <= `WriteEnable;
+                    opcode_o        <= `JALR_OP;
+                    funct3_o        <= `NON_FUNCT3;
+                    reg1_read_o     <= `True_v;
+                    reg2_read_o     <= `False_v;
+                    imm             <= pc_i_plus_4;
+                    wd_o            <= inst_i[11:7];
+                    inst_valid      <= `InstValid;
+                    branch_addr_o   <= {{20{inst_i[31]}}, inst_i[31:20]} + reg1_o;
+                end
+                `BRANCH_OP: begin
+                    wreg_o          <= `WriteDisable;
+                    opcode_o        <= `BRANCH_OP;
+                    funct3_o        <= funct3;
+                    reg1_read_o     <= `True_v;
+                    reg2_read_o     <= `True_v;
+                    imm             <= `ZeroWord;
+                    wd_o            <= `ZeroWord;
+                    inst_valid      <= `InstValid;
                     case (funct3)
-                        `ADD_SUB_FUNCT3: begin
-                            case (funct7)
-                                `ADD_FUNCT7: begin
-                                    funct3_o    <= `ADD_SUB_FUNCT3;
-                                    funct7_o    <= `ADD_FUNCT7;
-                                end
-                                `SUB_FUNCT7: begin
-                                    funct3_o    <= `ADD_SUB_FUNCT3;
-                                    funct7_o    <= `SUB_FUNCT7;
-                                end
-                                default: begin
-                                end
-                            endcase
+                        `BEQ_FUNCT3: begin
+                            if (reg1_o == reg2_o) begin
+                                branch_enable_o <= 1'b1;
+                                branch_addr_o   <= {{20{inst_i[31]}}, inst_i[7], inst_i[30:25], inst_i[11:8], 1'b0} + pc_i;
+                            end
                         end
-                        `OR_FUNCT3: begin
-                            funct3_o    <= `OR_FUNCT3;
+                        `BNE_FUNCT3: begin
+                            if (reg1_o != reg2_o) begin
+                                branch_enable_o <= 1'b1;
+                                branch_addr_o   <= {{20{inst_i[31]}}, inst_i[7], inst_i[30:25], inst_i[11:8], 1'b0} + pc_i;
+                            end
                         end
-                        `SLT_FUNCT3: begin
-                            funct3_o    <= `SLT_FUNCT3;
+                        `BLT_FUNCT3: begin
+                            if (reg1_lt_reg2) begin
+                                branch_enable_o <= 1'b1;
+                                branch_addr_o   <= {{20{inst_i[31]}}, inst_i[7], inst_i[30:25], inst_i[11:8], 1'b0} + pc_i;
+                            end
                         end
-                        `SLTU_FUNCT3: begin
-                            funct3_o    <= `SLTU_FUNCT3;
+                        `BLTU_FUNCT3: begin
+                            if (reg1_lt_reg2_u) begin
+                                branch_enable_o <= 1'b1;
+                                branch_addr_o   <= {{20{inst_i[31]}}, inst_i[7], inst_i[30:25], inst_i[11:8], 1'b0} + pc_i;
+                            end
+                        end
+                        `BGE_FUNCT3: begin
+                            if (reg1_gt_reg2) begin
+                                branch_enable_o <= 1'b1;
+                                branch_addr_o   <= {{20{inst_i[31]}}, inst_i[7], inst_i[30:25], inst_i[11:8], 1'b0} + pc_i;
+                            end
+                        end
+                        `BGE_FUNCT3: begin
+                            if (reg1_gt_reg2_u) begin
+                                branch_enable_o <= 1'b1;
+                                branch_addr_o   <= {{20{inst_i[31]}}, inst_i[7], inst_i[30:25], inst_i[11:8], 1'b0} + pc_i;
+                            end
                         end
                         default: begin
                         end
@@ -163,19 +217,24 @@ reg     inst_valid;
                 `LOAD_OP: begin
                     wreg_o      <= `WriteEnable;
                     opcode_o    <= `LOAD_OP;
+                    funct3_o    <= funct3;
                     funct7_o    <= `NON_FUNCT7;
+                    ls_offset_o <= {{20{inst_i[31]}}, inst_i[31:20]};
                     reg1_read_o <= `True_v;
                     reg2_read_o <= `False_v;
                     wd_o        <= inst_i[11:7];
                     inst_valid  <= `InstValid;
-                    case (funct3)
-                        `LW_FUNCT3: begin
-                            funct3_o    <= `LW_FUNCT3;
-                            ls_offset_o <= {{20{inst_i[31]}}, inst_i[31:20]};
-                        end
-                        default: begin
-                        end
-                    endcase
+                end
+                `STORE_OP: begin
+                    wreg_o      <= `WriteDisable;
+                    opcode_o    <= `STORE_OP;
+                    funct3_o    <= funct3;
+                    funct7_o    <= `NON_FUNCT7;
+                    ls_offset_o <= {{20{inst_i[31]}}, inst_i[31:25], inst_i[11:7]};
+                    reg1_read_o <= `True_v;
+                    reg2_read_o <= `True_v;
+                    wd_o        <= inst_i[11:7];
+                    inst_valid  <= `InstValid;
                 end
                 `LUI_OP: begin
                     wreg_o          <= `WriteEnable;

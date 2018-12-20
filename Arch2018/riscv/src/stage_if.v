@@ -15,8 +15,7 @@ module stage_if(
     output reg[`InstAddrBus]    mem_addr_o,
     output reg                  mem_we_o,
     // for branch ctrl
-    output reg                  branch_enable_o,
-    output reg[`InstAddrBus]    branch_addr_o,
+    output reg                  branch_sign_o,
 
     output reg                  if_stall_req_o,
     // pass universal info
@@ -34,17 +33,16 @@ reg[`MemDataBus]   inst_block3;
         if (rst == `RstEnable) begin
             inst_o          <= `ZeroWord;
             if_cnt_o        <= 4'b0000;
-            branch_enable_o <= `False_v;
+            branch_sign_o   <= `False_v;
             mem_we_o        <= `WriteDisable;
-            branch_addr_o   <= `ZeroWord;
             inst_block1     <= 8'h00;
             inst_block2     <= 8'h00;
             inst_block3     <= 8'h00;
+            if_stall_req_o  <= `True_v;
         end else if (rdy == `PauseDisable) begin
             if_cnt_o        <= 4'b0000;
-            branch_enable_o <= `False_v;
+            branch_sign_o   <= `False_v;
             mem_we_o        <= `WriteDisable;
-            branch_addr_o   <= `ZeroWord;
             pc_o            <= pc_i;
             case (if_cnt_i)
                 4'b0000: begin
@@ -81,10 +79,21 @@ reg[`MemDataBus]   inst_block3;
                     if_cnt_o        <= 4'b0111;
                 end
                 4'b0111: begin
-                    if_stall_req_o <= `False_v;
-                    inst_o         <= {mem_data_i, inst_block3, inst_block2, inst_block1};
-                    if_cnt_o       <= 4'b1000;
-            end
+                    inst_o          <= {mem_data_i, inst_block3, inst_block2, inst_block1};
+                    if ((inst_block1[6:0] == `BRANCH_OP) || (inst_block1[6:0] == `JAL_OP) || (inst_block1[6:0] == `JALR_OP)) begin
+                        if_stall_req_o      <= `True_v;
+                        branch_sign_o       <= `True_v;
+                        if_cnt_o            <= 4'b1000;
+                    end else begin
+                        if_stall_req_o      <= `False_v;
+                        if_cnt_o       <= 4'b1001;
+                    end
+                end
+                4'b1000: begin
+                    branch_sign_o   <= `False_v;
+                    if_stall_req_o      <= `False_v;
+                    if_cnt_o        <= 4'b1001;
+                end
                 default: begin
                 end
             endcase

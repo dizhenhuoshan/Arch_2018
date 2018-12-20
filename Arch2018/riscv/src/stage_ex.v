@@ -38,7 +38,7 @@ module stage_ex(
                         || (!reg1_i[31] && !reg2_i[31] && result_sum[31])
                         || (reg1_i[31] && reg2_i[31] && result_sum[31])):
                         (reg1_i < reg2_i);
-
+    assign shift_sra = ({32{reg2_i[31]}} << (6'd32 - {1'b0, reg1_i[4:0]})) | reg2_i >> reg1_i[4:0];
 
     always @ ( * ) begin
         if (rst == `RstEnable) begin
@@ -87,18 +87,37 @@ module stage_ex(
                         `OR_FUNCT3: begin
                             wdata_o <= reg1_i | reg2_i;
                         end
+                        `XOR_FUNCT3: begin
+                            wdata_o <= reg1_i ^ reg2_i;
+                        end
+                        `AND_FUNCT3: begin
+                            wdata_o <= reg1_i & reg2_i;
+                        end
+                        `SLL_FUNCT3: begin
+                            wdata_o <= reg2_i << reg1_i[4:0];
+                        end
+                        `SRL_SRA_FUNCT3: begin
+                            case (funct7_i)
+                                `SRL_FUNCT7: begin
+                                    wdata_o <= reg2_i >> reg1_i[4:0];
+                                end
+                                `SRA_FUNCT7: begin
+                                    wdata_o <= shift_sra;
+                                end
+                                default: begin
+                                end
+                            endcase
+                        end
                         default: begin
                         end
                     endcase
                 end
                 `LOAD_OP: begin
-                    case (funct3_i)
-                        `LW_FUNCT3: begin
-                            mem_addr_o  <= reg1_i + ls_offset_i;
-                        end
-                        default: begin
-                        end
-                    endcase
+                    mem_addr_o  <= reg1_i + ls_offset_i;
+                end
+                `STORE_OP: begin
+                    mem_addr_o  <= reg1_i + ls_offset_i;
+                    wdata_o     <= reg2_i;
                 end
                 `LUI_OP: begin
                     wdata_o <= reg1_i;
@@ -110,7 +129,9 @@ module stage_ex(
                     wdata_o <= reg1_i;
                 end
                 `JALR_OP: begin
-                    wdata_o <= reg1_i;
+                    wdata_o <= reg2_i;
+                end
+                `BRANCH_OP: begin
                 end
                 default: begin
                     wdata_o <= `ZeroWord;
