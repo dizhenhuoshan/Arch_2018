@@ -33,7 +33,7 @@
 
 // For Inst opcode
 `define NON_OP              7'b0000000 // Nothing
-`define OP_IMM_OP           7'b0010011 // ADDI* SLTI* SLTIU* XORI* ORI* ANDI*
+`define OP_IMM_OP           7'b0010011 // ADDI* SLTI* SLTIU* XORI* ORI* ANDI* SLLI SRLI SRAI
 `define OP_OP               7'b0110011 // ADD* SUB* SLL/ SLT* SLTU* XOR/ SRL/ SRA/ OR* AND/
 `define LUI_OP              7'b0110111 // LUI*
 `define AUIPC_OP            7'b0010111 // AUIPC*
@@ -51,6 +51,8 @@
 `define XORI_FUNCT3         3'b100
 `define ORI_FUNCT3          3'b110
 `define ANDI_FUNCT3         3'b111
+`define SLLI_FUNCT3         3'b001
+`define SRLI_SRAI_FUNCT3    3'b101
 `define ADD_SUB_FUNCT3      3'b000
 `define SLL_FUNCT3          3'b001
 `define SLT_FUNCT3          3'b010

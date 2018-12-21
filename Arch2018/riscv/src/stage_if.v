@@ -86,12 +86,12 @@ reg[`MemDataBus]   inst_block3;
                         if_cnt_o            <= 4'b1000;
                     end else begin
                         if_stall_req_o      <= `False_v;
-                        if_cnt_o       <= 4'b1001;
+                        if_cnt_o            <= 4'b1001;
                     end
                 end
                 4'b1000: begin
                     branch_sign_o   <= `False_v;
-                    if_stall_req_o      <= `False_v;
+                    if_stall_req_o  <= `False_v;
                     if_cnt_o        <= 4'b1001;
                 end
                 default: begin

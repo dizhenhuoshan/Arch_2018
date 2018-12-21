@@ -49,13 +49,23 @@ wire [`FunctBus7]   funct7 = inst_i[31:25];
 
 // imm number
 reg[`RegBus]    imm;
+wire[`InstAddrBus]  pc_i_plus_4;
+wire                reg1_eq_reg2;
+wire                reg1_lt_reg2_u;
+wire                reg1_gt_reg2_u;
+wire[`RegBus]       reg1_mux;
+wire[`RegBus]       reg2_mux;
+wire                reg1_lt_reg2;
 
-assign pc_i_plus_4 = pc_i + 4;
-assign reg1_eq_reg2 = reg1_o == reg2_o;
-assign reg1_lt_reg2 = reg1_o < reg2_o;
-assign reg1_lt_reg2_u = {1'b0, reg1_o} < {1'b0, reg2_o};
-assign reg1_gt_reg2 = reg1_o > reg2_o;
-assign reg1_gt_reg2_u = {1'b0, reg1_o} > {1'b0, reg2_o};
+assign pc_i_plus_4 = pc_i + 32'h4;
+assign reg1_eq_reg2 = (reg1_o == reg2_o);
+assign reg1_lt_reg2_u = reg1_o < reg2_o;
+assign reg1_gt_reg2_u = reg1_o > reg2_o;
+assign reg1_mux = ~reg1_o + 32'h1;
+assign reg2_mux = ~reg2_o + 32'h1;
+assign reg1_lt_reg2 = ((reg1_o[31] & !reg2_o[31]) // neg < pos
+                    || (reg1_o[31] && reg2_o[31] && (reg1_mux > reg2_mux)) // neg neg use abs
+                    || (!reg1_o[31] && !reg2_o[31] && reg1_lt_reg2_u)); // pos pos compare
 
 // InstValid bit
 reg     inst_valid;
@@ -104,12 +114,12 @@ reg     inst_valid;
                             imm         <= {{20{inst_i[31]}}, inst_i[31:20]};
                         end
                         `SLTI_FUNCT3: begin
-                            opcode_o    <= `OP_OP; // to simply the ex, SLTI == SLT in ex stage
+                            opcode_o    <= `OP_OP; // to simplify the ex, SLTI == SLT in ex stage
                             funct3_o    <= `SLTI_FUNCT3;
                             imm         <= {{20{inst_i[31]}}, inst_i[31:20]};
                         end
                         `SLTIU_FUNCT3: begin
-                            opcode_o    <= `OP_OP; // to simply the ex
+                            opcode_o    <= `OP_OP; // to simplify the ex
                             funct3_o    <= `SLTIU_FUNCT3;
                             imm         <= {{20{inst_i[31]}}, inst_i[31:20]};
                         end
@@ -125,6 +135,17 @@ reg     inst_valid;
                             funct3_o    <= `ANDI_FUNCT3;
                             imm         <= {{20{inst_i[31]}}, inst_i[31:20]};
                         end
+                        `SLLI_FUNCT3: begin
+                            opcode_o    <= `OP_OP; // to simplify ex
+                            funct3_o    <= `SLLI_FUNCT3;
+                            imm         <= {27'b0, inst_i[24:20]};
+                        end
+                        `SRLI_SRAI_FUNCT3: begin
+                            opcode_o    <= `OP_OP;
+                            funct3_o    <= `SRLI_SRAI_FUNCT3;
+                            imm         <= {27'b0, inst_i[24:20]};
+                            funct7_o    <= funct7;
+                        end
                         default: begin
                         end
                     endcase
@@ -136,7 +157,6 @@ reg     inst_valid;
                     reg2_read_o <= `True_v;
                     wd_o        <= inst_i[11:7];
                     inst_valid  <= `InstValid;
-                    funct7_o    <= `NON_FUNCT7;
                     funct3_o    <= funct3;
                     funct7_o    <= funct7;
                 end
@@ -199,13 +219,13 @@ reg     inst_valid;
                             end
                         end
                         `BGE_FUNCT3: begin
-                            if (reg1_gt_reg2) begin
+                            if (!reg1_lt_reg2) begin
                                 branch_enable_o <= 1'b1;
                                 branch_addr_o   <= {{20{inst_i[31]}}, inst_i[7], inst_i[30:25], inst_i[11:8], 1'b0} + pc_i;
                             end
                         end
-                        `BGE_FUNCT3: begin
-                            if (reg1_gt_reg2_u) begin
+                        `BGEU_FUNCT3: begin
+                            if (reg1_gt_reg2_u || reg1_eq_reg2) begin
                                 branch_enable_o <= 1'b1;
                                 branch_addr_o   <= {{20{inst_i[31]}}, inst_i[7], inst_i[30:25], inst_i[11:8], 1'b0} + pc_i;
                             end

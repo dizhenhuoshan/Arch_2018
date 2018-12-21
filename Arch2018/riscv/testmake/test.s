@@ -1,26 +1,20 @@
 .org 0x0
-.global _start
+.globl _start
 
 _start:
-	lui x1, 0x10100		# x1 = 0x10100000
-	lui x3, 0
-	lw x4, 0(x3)		# x4 = 0x101000b7
-	ori x1, x1, 0x101	# x1 = x1 | 0x101	= 0x10100101
-	ori x2, x1, 0x010	# x2 = x1 | 0x010 	= 0x10100111
-	or x1, x1, x2		# x1 = x1 | x2		= 0x10100111
-
-	sw x4, 1024(x0)
-	sw x4, 1028(x0)
-	jal baka
-	lui x7, 0
-	lui x8, 0
-
-baka:
-
-
-	lw x5, 1026(x0)
-	# andi x3, x1, 0x0ce	# x3 = x1 & 0x0ce	= 0x00000000
-	# and x1, x3, x1		# x1 = x3 & x1		= 0x00000000
-	# xori x4, x1, 0x7f0	# x4 = x1 ^ 0x7f0	= 0x000007f0
-	# xori x1, x4, 0x0f0	# x1 = x4 ^ 0x0f0	= 0x00000700
-	# xor x1, x4, x1		# x1 = x4 ^ x1		= 0x000000f0
+	lui x2, 0x04040			# x2				=	0x04040000
+	ori x2, x2, 0x404		# x2 = x2 | 0x404	=	0x04040404
+	ori x7, x0, 0x7			# x7 = x0 | 0x7		=	0x00000007
+	ori x5, x0, 0x5			# x5 = x0 | 0x5		=	0x00000005
+	ori x8, x0, 0x8			# x8 = x0 | 0x8		=	0x00000008
+	slli x2, x2, 8			# x2 = x2 << 8		=	0x04040400
+	sll x2, x2, x7			# x2 = x2 << x7		=	0x02020000
+	srli x2, x2, 8			# x2 = x2 >> 8		=	0x00020200
+	sra x2, x2, x8			# x2 = x2 a>> x8	=	0x00000202
+	sll x2, x2, x8			# x2 = x2 << x8		=	0x00020200
+	srai x2, x2, 1			# x2 = x2 a>> 1		= 	0x00010100
+	srl  x2, x2, x8			# x2 = x2 >> x8		=	0x00000101
+	# nop
+	slli x2, x2, 23			# x2 = x2 << 23		=	0x80800000
+	srai x2, x2, 16			# x2 = x2 a>> 16	= 	0xffff8080
+	sra x2, x2, x8			# x2 = x2 a>> 8		=	0xffffff80

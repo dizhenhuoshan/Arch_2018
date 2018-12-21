@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018
-| Date             : Thu Dec 20 09:25:25 2018
+| Date             : Thu Dec 20 23:59:25 2018
 | Host             : wymt-GP62-6QG running 64-bit Ubuntu 18.04.1 LTS
 | Command          : report_power -file riscv_top_power_routed.rpt -pb riscv_top_power_summary_routed.pb -rpx riscv_top_power_routed.rpx
 | Design           : riscv_top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.107        |
+| Total On-Chip Power (W)  | 0.108        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.034        |
+| Dynamic (W)              | 0.035        |
 | Device Static (W)        | 0.073        |
 | Effective TJA (C/W)      | 5.0          |
 | Max Ambient (C)          | 84.5         |
@@ -53,19 +53,19 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.004 |        3 |       --- |             --- |
-| Slice Logic              |     0.001 |     3220 |       --- |             --- |
-|   LUT as Logic           |     0.001 |     1290 |     20800 |            6.20 |
-|   CARRY4                 |    <0.001 |      101 |      8150 |            1.24 |
+| Slice Logic              |     0.001 |     3789 |       --- |             --- |
+|   LUT as Logic           |     0.001 |     1763 |     20800 |            8.48 |
+|   CARRY4                 |    <0.001 |      123 |      8150 |            1.51 |
+|   Register               |    <0.001 |     1050 |     41600 |            2.52 |
 |   LUT as Distributed RAM |    <0.001 |      440 |      9600 |            4.58 |
-|   Register               |    <0.001 |     1033 |     41600 |            2.48 |
 |   F7/F8 Muxes            |    <0.001 |       49 |     32600 |            0.15 |
 |   BUFG                   |    <0.001 |        5 |        32 |           15.63 |
-|   Others                 |     0.000 |       39 |       --- |             --- |
-| Signals                  |     0.002 |     2676 |       --- |             --- |
-| Block RAM                |     0.026 |       32 |        50 |           64.00 |
+|   Others                 |     0.000 |       38 |       --- |             --- |
+| Signals                  |     0.002 |     3179 |       --- |             --- |
+| Block RAM                |     0.027 |       32 |        50 |           64.00 |
 | I/O                      |    <0.001 |        5 |       106 |            4.72 |
 | Static Power             |     0.073 |          |           |                 |
-| Total                    |     0.107 |          |           |                 |
+| Total                    |     0.108 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -75,7 +75,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.041 |       0.031 |      0.010 |
+| Vccint    |       1.000 |     0.042 |       0.032 |      0.010 |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |
 | Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -144,8 +144,8 @@ Table of Contents
 +---------------------------------------+-----------+
 | Name                                  | Power (W) |
 +---------------------------------------+-----------+
-| riscv_top                             |     0.034 |
-|   cpu0                                |     0.002 |
+| riscv_top                             |     0.035 |
+|   cpu0                                |     0.003 |
 |     ctrl0                             |    <0.001 |
 |     ex0                               |    <0.001 |
 |     ex_mem0                           |    <0.001 |
@@ -243,7 +243,7 @@ Table of Contents
 |         q_data_array_reg_0_7_0_5      |    <0.001 |
 |         q_data_array_reg_0_7_6_7      |    <0.001 |
 |       uart_tx_blk                     |    <0.001 |
-|       uart_tx_fifo                    |    <0.001 |
+|       uart_tx_fifo                    |     0.001 |
 |         q_data_array_reg_0_63_0_2     |    <0.001 |
 |         q_data_array_reg_0_63_3_5     |    <0.001 |
 |         q_data_array_reg_0_63_6_6     |    <0.001 |

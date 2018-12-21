@@ -8,4 +8,4 @@ if [ -f ./testcase/$@.ans ]; then cp ./testcase/$@.ans ./test/test.ans; fi
 # add your own test script here
 # Example:
 # - iverilog/gtkwave/vivado
-# - diff ./test/test.ans ./test/test.out
+diff ./test/test.ans ./test/test.out

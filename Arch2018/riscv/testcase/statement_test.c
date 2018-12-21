@@ -19,6 +19,7 @@ int check[20];
 
 int main() {
     N = inl();
+    // N = 10;
 	int i = 0;
 	while ( i <= N ) check[i++] = 1;
 	int phi[15];

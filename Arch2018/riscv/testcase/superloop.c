@@ -16,10 +16,10 @@ int main() {
 	int d;
 	int e;
 	int f;
-	N=inl();
+	N=6;
 	for ( a=1; a<=N; a++ )
 	for ( b=1; b<=N; b++ )
-	for ( c=1; c<=N; c++ )	
+	for ( c=1; c<=N; c++ )
 	for ( d=1; d<=N; d++ )
 	for ( e=1; e<=N; e++ )
 	for ( f=1; f<=N; f++ )
@@ -32,7 +32,7 @@ int main() {
 		{
 			total++;
 		}
-	
+
 	outlln(total);
 	return 0;
 }

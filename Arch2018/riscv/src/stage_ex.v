@@ -28,7 +28,8 @@ module stage_ex(
     wire                reg1_eq_reg2; // if reg1 == reg2, thisi is 1'b1;
     wire                reg1_lt_reg2; // if reg1 < reg2, this is 1'b1;
     wire[`RegBus]       reg2_i_mux;   // reg2's two's complement representation;
-    wire[`RegBus]       result_sum;   // reg1 + reg2;
+    wire[`RegBus]       result_sum;
+    wire[`RegBus]       shift_sra;
 
     assign reg1_eq_reg2 = reg1_i == reg2_i;
     assign reg2_i_mux = ((funct7_i == `SUB_FUNCT7) ||
@@ -38,7 +39,7 @@ module stage_ex(
                         || (!reg1_i[31] && !reg2_i[31] && result_sum[31])
                         || (reg1_i[31] && reg2_i[31] && result_sum[31])):
                         (reg1_i < reg2_i);
-    assign shift_sra = ({32{reg2_i[31]}} << (6'd32 - {1'b0, reg1_i[4:0]})) | reg2_i >> reg1_i[4:0];
+    assign shift_sra = ({32{reg1_i[31]}} << (6'd32 - {1'b0, reg2_i[4:0]})) | reg1_i >> reg2_i[4:0];
 
     always @ ( * ) begin
         if (rst == `RstEnable) begin
@@ -59,12 +60,8 @@ module stage_ex(
                         `ADDI_FUNCT3: begin
                             wdata_o  <= result_sum;
                         end
-                        `SLTI_FUNCT3, `SLTIU_FUNCT3: begin
-                            wdata_o <= reg1_lt_reg2;
-                        end
                         `ORI_FUNCT3: begin
                             wdata_o  <= reg1_i | reg2_i;
-                            // $display("%h", op_imm_res);
                         end
                         `XORI_FUNCT3: begin
                             wdata_o  <= reg1_i ^ reg2_i;
@@ -94,12 +91,12 @@ module stage_ex(
                             wdata_o <= reg1_i & reg2_i;
                         end
                         `SLL_FUNCT3: begin
-                            wdata_o <= reg2_i << reg1_i[4:0];
+                            wdata_o <= reg1_i << reg2_i[4:0];
                         end
                         `SRL_SRA_FUNCT3: begin
                             case (funct7_i)
                                 `SRL_FUNCT7: begin
-                                    wdata_o <= reg2_i >> reg1_i[4:0];
+                                    wdata_o <= reg1_i >> reg2_i[4:0];
                                 end
                                 `SRA_FUNCT7: begin
                                     wdata_o <= shift_sra;

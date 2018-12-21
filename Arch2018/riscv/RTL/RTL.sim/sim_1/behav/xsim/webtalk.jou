@@ -2,8 +2,8 @@
 # Webtalk v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Wed Dec 19 22:16:50 2018
-# Process ID: 22680
+# Start of session at: Fri Dec 21 23:13:37 2018
+# Process ID: 12166
 # Current directory: /home/wymt/code/system2018/Arch2018/riscv/RTL/RTL.sim/sim_1/behav/xsim
 # Command line: wbtcv -mode batch -source /home/wymt/code/system2018/Arch2018/riscv/RTL/RTL.sim/sim_1/behav/xsim/xsim.dir/testbench_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: /home/wymt/code/system2018/Arch2018/riscv/RTL/RTL.sim/sim_1/behav/xsim/webtalk.log
