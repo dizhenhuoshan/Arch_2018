@@ -1,0 +1,4 @@
+#忽略RISC_V GNU工具链, OpenMips, FPGA2
+riscv-gnu-toolchain/
+OpenMIPS/
+FPGA2/
