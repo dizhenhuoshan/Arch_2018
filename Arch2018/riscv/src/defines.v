@@ -86,6 +86,6 @@
 // For General
 `define RegNum              32
 `define RegNumLog2          5
-`define BlockNum            64
+`define BlockNum            128
 `define ZeroWord            32'h00000000
 `define NOPRegAddr          5'b00000

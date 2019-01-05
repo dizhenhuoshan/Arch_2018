@@ -16,42 +16,49 @@ module icache(
     output reg[`InstBus]        inst_o
 );
 
-reg [31:0]                  cache_data[`BlockNum - 1:0];
-reg [12:0]                  cache_vtag[`BlockNum - 1:0];
+(* ram_style = "registers" *) reg [31:0]    cache_data[`BlockNum - 1:0];
+(* ram_style = "registers" *) reg [10:0]    cache_tag[`BlockNum - 1:0];
+(* ram_style = "registers" *) reg           cache_valid[`BlockNum - 1:0];
+wire            rvalid;
+wire [10:0]     rtag_i;
+wire [6:0]      rindex_i;
+wire [10:0]     wtag_i;
+wire [6:0]      windex_i;
+wire [10:0]     rtag_c;
+wire [31:0]     rinst_c;
 
-wire        rvalid;
-wire [11:0] rtag_i;
-wire [5:0]  rindex_i;
-wire [11:0] wtag_i;
-wire [5:0]  windex_i;
-wire [11:0] rtag_c;
-wire [31:0] rinst_c;
+assign rtag_i    = rpc_i[17:7];
+assign rindex_i  = rpc_i[6:0];
 
-assign rtag_i    = rpc_i[17:6];
-assign rindex_i  = rpc_i[5:0];
+assign wtag_i    = wpc_i[17:7];
+assign windex_i  = wpc_i[6:0];
 
-assign wtag_i    = wpc_i[17:6];
-assign windex_i  = wpc_i[5:0];
+assign rvalid    = cache_valid[rindex_i];
+assign rtag_c    = cache_tag[rindex_i];
+assign rinst_c   = cache_data[rindex_i];
 
-assign {rvalid, rtag_c}     = cache_vtag[rindex_i];
-assign rinst_c              = cache_data[rindex_i];
-
+integer i;
 always @ (posedge clk) begin
-    if (we_i) begin
-        cache_vtag[windex_i] <= {1'b1, wpc_i[17:6]};
-        cache_data[windex_i] <= winst_i;
+    if (rst)begin
+        for (i = 0; i < `BlockNum; i = i + 1)
+            cache_valid[i]   <= 1'b0;
+    end else if (we_i) begin
+        cache_valid[windex_i]   <= 1'b1;
+        cache_tag[windex_i]     <= wpc_i[17:7];
+        cache_data[windex_i]    <= winst_i;
     end
 end
+
 
 always @ ( * ) begin
     if (rst || !rdy) begin
         hit_o           <= `False_v;
         inst_o          <= `ZeroWord;
     end else begin
-        if ((rindex_i == windex_i) && we_i) begin
+        if (!(rindex_i ^ windex_i) && we_i) begin
             hit_o       <= `True_v;
             inst_o      <= winst_i;
-        end else if ((rtag_i == rtag_c) && rvalid) begin
+        end else if (!(rtag_i ^ rtag_c) && rvalid) begin
             hit_o       <= `True_v;
             inst_o      <= rinst_c;
         end else begin

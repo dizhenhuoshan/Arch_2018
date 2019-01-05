@@ -5,7 +5,6 @@ module ctrl (
 
     input wire                  if_stall_req_i,
     input wire                  branch_stall_req_i,
-    input wire                  id_stall_req_i,
     input wire                  mem_stall_req_i,
     output reg[`StallBus]       stall_sign
 );

@@ -84,20 +84,20 @@ always @ (posedge clk) begin
                             branch_stall_req_o   <= `True_v;
                         end else begin
                             branch_stall_req_o   <= `False_v;
-                            pc_o                 <= pc_o + 4;
+                            pc_o                 <= pc_o[17:0] + 17'h4;
                         end
                     end
                 end else begin
                     if (stall_sign[1]) begin
                         cnt             <= 4'b1000;
                     end else begin
-                        mem_addr_o      <= pc_o + 1;
+                        mem_addr_o      <= pc_o[17:0] + 17'h1;
                         cnt             <= 4'b0010;
                     end
                 end
             end
             4'b0010: begin
-                mem_addr_o      <= pc_o + 2;
+                mem_addr_o      <= pc_o[17:0] + 17'h2;
                 inst_block1     <= mem_data_i;
                 cnt             <= 4'b0011;
             end
@@ -105,7 +105,7 @@ always @ (posedge clk) begin
                 if (stall_sign[1]) begin // last inst is in mem stage.
                     cnt             <= 4'b1010; // to resent the addr.
                 end else begin
-                    mem_addr_o      <= pc_o + 3;
+                    mem_addr_o      <= pc_o[17:0] + 17'h3;
                     inst_block2     <= mem_data_i;
                     cnt             <= 4'b0100;
                 end
@@ -129,38 +129,38 @@ always @ (posedge clk) begin
                     branch_stall_req_o   <= `True_v;
                 end else begin
                     branch_stall_req_o   <= `False_v;
-                    pc_o                 <= pc_o + 4;
+                    pc_o                 <= pc_o[17:0] + 17'h4;
                 end
             end
             // For the interuption from stage_mem;
             4'b1000: begin
                 if (!stall_sign[1]) begin
-                    mem_addr_o      <= pc_o;
+                    mem_addr_o      <= pc_o[17:0];
                     cnt             <= 4'b1001;
                 end
             end
             4'b1001: begin
-                mem_addr_o          <= pc_o + 1;
+                mem_addr_o          <= pc_o[17:0] + 17'h1;
                 cnt                 <= 4'b0010;
             end
             4'b1010: begin
                 if (!stall_sign[1]) begin
-                    mem_addr_o      <= pc_o + 1;
+                    mem_addr_o      <= pc_o[17:0] + 17'h1;
                     cnt             <= 4'b1011;
                 end
             end
             4'b1011: begin
-                mem_addr_o      <= pc_o + 2;
+                mem_addr_o      <= pc_o[17:0] + 17'h2;
                 cnt             <= 4'b0011; // pc + 1 data is ready
             end
             4'b1100: begin
                 if (!stall_sign[1]) begin
-                    mem_addr_o      <= pc_o + 2;
+                    mem_addr_o      <= pc_o[17:0] + 17'h2;
                     cnt             <= 4'b1101;
                 end
             end
             4'b1101: begin
-                mem_addr_o      <= pc_o + 3;
+                mem_addr_o      <= pc_o[17:0] + 17'h3;
                 cnt             <= 4'b0100; // pc + 2 data is ready
             end
             default: begin
