@@ -20,13 +20,13 @@ module mcu (
 );
 
     always @ ( * ) begin
-        if (rst) begin
+        if (rst || !rdy) begin
             write_enable_o          <= `False_v;
             mem_addr_o              <= `ZeroWord;
             mem_data_o              <= 8'h00;
             if_stall_req_o          <= `False_v;
             mem_stall_req_o         <= `False_v;
-        end else if (rdy) begin
+        end else begin
             if (mem_mem_req_i) begin
                 if_stall_req_o  <= `False_v;
                 mem_stall_req_o     <= `True_v;

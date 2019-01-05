@@ -40,9 +40,9 @@ end
 
 // read port - reg can be read anytime
     always @ ( * ) begin
-        if (rst) begin
+        if (rst || !rdy) begin
             rdata1 <= `ZeroWord;
-        end else if (rdy) begin
+        end else begin
             if (raddr1 == `RegNumLog2'h0) begin
                 rdata1 <= `ZeroWord;
             end else if ((raddr1 == waddr) && (we == `WriteEnable) && (re1 == `ReadEnable)) begin
@@ -56,7 +56,7 @@ end
     end
 
     always @ ( * ) begin
-        if (rst) begin
+        if (rst || !rdy) begin
             rdata2  <= `ZeroWord;
         end else if (rdy) begin
             if (raddr2 == `RegNumLog2'h0) begin
@@ -65,8 +65,6 @@ end
                 rdata2 <= wdata;
             end else if (re2 == `ReadEnable) begin
                 rdata2 <= regs[raddr2];
-            end else begin
-                rdata2 <= `ZeroWord;
             end
         end
     end

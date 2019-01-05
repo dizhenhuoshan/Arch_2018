@@ -106,6 +106,14 @@ wire                    mem_stall_req;
 wire                    branch_enable;
 wire[`InstAddrBus]      branch_addr;
 
+// Instruction cache
+wire                    cache_we;
+wire[`InstAddrBus]      cache_wpc;
+wire[`InstBus]          cache_winst;
+wire[`InstAddrBus]      cache_rpc;
+wire                    cache_hit;
+wire[`InstBus]          cache_inst;
+
 regfile regfile0(
     .clk(clk_in),
     .rst(rst_in),
@@ -126,8 +134,14 @@ stage_if if0(
     .rst(rst_in),
     .stall_sign(stall_signal),
     .mem_data_i(mem_din),
+    .cache_inst_i(cache_inst),
+    .cache_hit_i(cache_hit),
     .mem_addr_o(if_mem_addr),
     .mem_we_o(if_write_enable),
+    .cache_waddr_o(cache_wpc),
+    .cache_we_o(cache_we),
+    .cache_winst_o(cache_winst),
+    .cache_raddr_o(cache_rpc),
     .branch_enable_i(branch_enable),
     .branch_addr_i(branch_addr),
     .if_mem_req_o(if_mem_req),
@@ -291,6 +305,18 @@ ctrl ctrl0(
     .branch_stall_req_i(branch_stall_req),
     .mem_stall_req_i(mem_stall_req),
     .stall_sign(stall_signal)
+);
+
+icache icache0(
+    .clk(clk_in),
+    .rst(rst_in),
+    .rdy(rdy_in),
+    .we_i(cache_we),
+    .wpc_i(cache_wpc),
+    .winst_i(cache_winst),
+    .rpc_i(cache_rpc),
+    .hit_o(cache_hit),
+    .inst_o(cache_inst)
 );
 
 endmodule

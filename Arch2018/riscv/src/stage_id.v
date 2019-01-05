@@ -90,6 +90,7 @@ reg     inst_valid;
             imm             <= `ZeroWord;
             branch_enable_o <= `False_v;
             branch_addr_o   <= `ZeroWord;
+            ls_offset_o     <= `ZeroWord;
         end else begin
             opcode_o        <= `NON_OP;
             funct3_o        <= `NON_FUNCT3;
@@ -104,6 +105,7 @@ reg     inst_valid;
             imm             <= `ZeroWord;
             branch_enable_o <= `False_v;
             branch_addr_o   <= `ZeroWord;
+            ls_offset_o     <= `ZeroWord;
             case (opcode)
                 `OP_IMM_OP: begin
                     wreg_o      <= `WriteEnable;
@@ -295,9 +297,9 @@ reg     inst_valid;
     end
 
     always @ ( * ) begin
-        if (rst == `RstEnable) begin
+        if (rst) begin
             reg1_o <= `ZeroWord;
-        end else if (rdy == `PauseDisable) begin
+        end else if (rdy) begin
             if ((reg1_read_o == `True_v) && (ex_wreg_i == `True_v) && (ex_wd_i == reg1_addr_o) && (ex_wd_i != `ZeroWord)) begin
                 reg1_o  <= ex_wdata_i;
             end else if ((reg1_read_o == `True_v) && (mem_wreg_i == `True_v) && (mem_wd_i == reg1_addr_o) && (mem_wd_i != `ZeroWord)) begin
@@ -313,9 +315,9 @@ reg     inst_valid;
     end
 
     always @ ( * ) begin
-        if (rst == `RstEnable) begin
+        if (rst) begin
             reg2_o <= `ZeroWord;
-        end else if (rdy == `PauseDisable) begin
+        end else if (rdy) begin
             if ((reg2_read_o == `True_v) && (ex_wreg_i == `True_v) && (ex_wd_i == reg2_addr_o) && (ex_wd_i != `ZeroWord)) begin
                 reg2_o  <= ex_wdata_i;
             end else if ((reg2_read_o == `True_v) && (mem_wreg_i == `True_v) && (mem_wd_i == reg2_addr_o) && (mem_wd_i != `ZeroWord)) begin
