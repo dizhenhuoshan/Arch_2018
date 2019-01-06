@@ -16,9 +16,10 @@
 本项目主要使用verilog硬件设计语言编写，使用Xilinx Vivado进行仿真测试和综合。
 
 ## 2. 架构示意图及说明
-![Structure](https://github.com/dizhenhuoshan/Arch_2018/img/structure.svg)
+
 ### 示意图
 本项目设计的cpu架构的流程图大致如下图所示：
+![Structure](https://raw.githubusercontent.com/dizhenhuoshan/Arch_2018/master/img/CPU.png)
 
 ### 说明
 图中各阶段的功能如下：
